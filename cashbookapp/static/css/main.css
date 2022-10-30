@@ -1,0 +1,118 @@
+@font-face {
+    font-family: 'KOTRALEAP';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/KOTRALEAP.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MICEGothic Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    background: src("{% static 'img/bar1.jpeg' %}");
+}
+
+.hr1{
+    border: solid 3px #45312b;
+}
+
+.anchor{
+    background-color:rgba(210, 105, 30, 0.525)
+}
+
+.box{
+    align-items: center;
+}
+ul{
+    font-family: 'KOTRALEAP';
+    font-style:italic;
+    font-size: 25px;
+    color:blueviolet;
+}
+
+h1{
+    font-family: 'KOTRALEAP';
+    background-color:black;
+    color: white;
+    width: 400px;
+    font-size: 50px;
+    font-style:italic;
+    position: fixed;
+}
+
+.columbus{
+    width: 60vw;
+    height: 30vh;
+    background-color:#141313;
+    margin: 30px;
+    padding: 10px;
+    font-size: 20px;
+    overflow: scroll;
+    font-family: 'KOTRALEAP';
+}
+
+.info{
+    font-size: 15px;
+    font-family: 'MICEGothic Bold';
+}
+
+h3{
+    position: sticky;
+    text-align: center;
+    font-family: 'KOTRALEAP';
+    color: white;
+    text-decoration: underline;
+}
+
+.colum_img{
+    width: 300px;
+    height: 300px;
+}
+
+.arslonga{
+    width: 60vw;
+    height: 30vh;
+    background-color:#141313;
+    margin: 30px;
+    padding: 10px;
+    font-size: 20px;
+    overflow: scroll;
+    font-family: 'KOTRALEAP';
+}
+
+.ars_img{
+    width: 300px;
+    height: 300px;
+}
+
+.cestsibon{
+    width: 60vw;
+    height: 30vh;
+    background-color:#141313;
+    margin: 30px;
+    padding: 10px;
+    font-size: 20px;
+    overflow: scroll;
+    font-family: 'KOTRALEAP';
+}
+
+.cest_img{
+    width: 300px;
+    height: 300px;
+}
+
+footer{
+    color: white;
+    text-align: right;
+}
