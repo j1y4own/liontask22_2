@@ -1,11 +1,11 @@
 from django.contrib import messages
 import datetime
-from .models import Cashbook, Comment
+from .models import Cashbook, Comment, Hashtag
 from django.utils import timezone
 from email import message
 from multiprocessing import context, reduction
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CashbookForm, CommentForm
+from .forms import CashbookForm, CommentForm, HashtagForm
 from django.http import request
 # Create your views here.
 
@@ -14,10 +14,10 @@ def main(request):
     return render(request, 'main.html')
 
 
-def write(request):
+def write(request, cashbook = None):
     context = {}
     if request.method == 'POST':
-        form = CashbookForm(request.POST, request.FILES)
+        form = CashbookForm(request.POST, request.FILES, instance = cashbook)
         if form.is_valid():
             form = form.save(commit=False)
             form.created_at = timezone.now()
@@ -31,7 +31,7 @@ def write(request):
             }
             return render(request, 'write.html', context)
     else:
-        form = CashbookForm
+        form = CashbookForm (instance = cashbook)
         # context['form'] = form
         return render(request, 'write.html', {'form': form})
 
@@ -118,3 +118,21 @@ def likes(request, id):
         like_b.like_count += 1
         like_b.save()
     return redirect('detail', like_b.id)
+
+def hashtag(request, hashtag = None):
+    if request.method == 'POST':
+        form = HashtagForm(request.POST, instance= hashtag)
+        if form.is_valid():
+            hashtag = form.save(commit = False)
+            if Hashtag.objects.filter(name=form.cleaned_data['name']) :
+                form = HashtagForm()
+                error_message = '이미 존재하는 해시태그입니다.'
+                return render(request, 'hashtag.html', {'form':form, 'error_message': error_message})
+            else :
+                hashtag.name = form.cleaned_data['name']
+                hashtag.save()
+            return redirect('read')
+    else :
+        form = HashtagForm(instance= hashtag)
+        return render(request, 'hashtag.html', {"form" : form})
+

@@ -8,6 +8,9 @@
 </head>
 <body>
     <h2>Read</h2>
+    <br>
+    <a href="{% url 'hashtag' %}">hashtag 만들기</a>
+    <br>
     <form method="post">
         {% for cashbooks in cashbooks.all %}
         <h3>제목 : <a href="{% url 'detail' cashbooks.id %}">{{cashbooks.title}}</a></h3>
