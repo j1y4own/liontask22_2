@@ -27,9 +27,11 @@
         {% for comment in cashbooks.comments.all %}
         <!-- 만약 글 작성자와 댓글 작성자가 같다면, -->
         {% if comment.author == cashbooks.author %}
-         <p>작성자 : {{ comment.text }}</p> <!-- 작성자라고 표시 -->
-         {% else %} <!-- 아닐시 -->
-        <p>{{ comment.author }} : {{ comment.text }}<!--  아이디 표시 -->
+        <p>작성자 : {{ comment.text }}</p> <!-- 작성자라고 표시 -->
+        {% else %}
+        <!-- 아닐시 -->
+        <p>{{ comment.author }} : {{ comment.text }}
+            <!--  아이디 표시 -->
             {% endif %}
             {% if comment.author == cashbooks.author %}
             <!-- 댓글 수정과 삭제 링크 -->
@@ -43,6 +45,10 @@
             {% csrf_token %}
             <p>{{ form.as_p }}</p>
             <input type="submit" value="submit">
+            <br><br>
+            <a href="{% url 'likes' cashbooks.id %}">
+                좋아요 : {{ cashbooks.like_count }}
+            </a>
         </form>
     </div>
 

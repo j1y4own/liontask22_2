@@ -15,7 +15,8 @@ class Cashbook(models.Model):
     created_at = models.DateTimeField(default= datetime.now, blank=True)
     image = models.ImageField(upload_to = 'image/', blank = True)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='author')
-
+    post_like = models.ManyToManyField(CustomUser, related_name='like_user', blank = True)
+    like_count = models.PositiveIntegerField(default = 0)
 
     def __str__(self):
         return self.title

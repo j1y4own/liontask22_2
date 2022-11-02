@@ -13,6 +13,7 @@ from django.http import request
 def main(request):
     return render(request, 'main.html')
 
+
 def write(request):
     context = {}
     if request.method == 'POST':
@@ -23,10 +24,10 @@ def write(request):
             form.author = request.user
             form.save()
             return redirect('read', form.id)
-        
+
         else:
             context = {
-                'form':form,
+                'form': form,
             }
             return render(request, 'write.html', context)
     else:
@@ -48,26 +49,27 @@ def read(request):
 
 
 def edit(request, id):
-    cashbooks = get_object_or_404(Cashbook, id = id)
+    cashbooks = get_object_or_404(Cashbook, id=id)
     if request.method == "POST":
-        form = CashbookForm(request.POST,request.FILES, instance=cashbooks,)
+        form = CashbookForm(request.POST, request.FILES, instance=cashbooks,)
         if form.is_valid():
             form.save(commit=False)
             form.save()
             return redirect('read')
-        
+
     else:
-        form= CashbookForm(instance=cashbooks)
-        return render(request, 'edit.html', {'form':form,'cashbooks':cashbooks})
+        form = CashbookForm(instance=cashbooks)
+        return render(request, 'edit.html', {'form': form, 'cashbooks': cashbooks})
 
 
 def delete(request, id):
-    cashbooks = get_object_or_404(Cashbook, id= id)
+    cashbooks = get_object_or_404(Cashbook, id=id)
     cashbooks.delete()
     return redirect('read')
 
+
 def detail(request, id):
-    cashbooks = get_object_or_404(Cashbook, id = id)
+    cashbooks = get_object_or_404(Cashbook, id=id)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -80,7 +82,8 @@ def detail(request, id):
             return redirect('detail', id)
     else:
         form = CommentForm()
-        return render(request, 'detail.html', {'cashbooks':cashbooks, 'form':form})
+        return render(request, 'detail.html', {'cashbooks': cashbooks, 'form': form})
+
 
 def update_comment(request, id, com_id):
     post = get_object_or_404(Cashbook, id=id)
@@ -89,15 +92,29 @@ def update_comment(request, id, com_id):
     if request.method == "POST":
         update_form = CommentForm(request.POST, instance=comment)
         if update_form.is_valid():
-            comment = update_form.save(commit = False)
+            comment = update_form.save(commit=False)
             comment.author = request.user
             comment.post_id = post
             comment.content = update_form.cleaned_data['text']
             update_form.save()
             return redirect('detail', id)
-    return render(request, 'update_comment.html', {'form':form, 'post':post, 'comment':comment})
+    return render(request, 'update_comment.html', {'form': form, 'post': post, 'comment': comment})
+
 
 def delete_comment(request, id, com_id):
     comment = get_object_or_404(Comment, id=com_id)
     comment.delete()
-    return redirect('detail',id)
+    return redirect('detail', id)
+
+
+def likes(request, id):
+    like_b = get_object_or_404(Cashbook, id=id)
+    if request.user in like_b.post_like.all():
+        like_b.post_like.remove(request.user)
+        like_b.like_count -= 1
+        like_b.save()
+    else:
+        like_b.post_like.add(request.user)
+        like_b.like_count += 1
+        like_b.save()
+    return redirect('detail', like_b.id)
