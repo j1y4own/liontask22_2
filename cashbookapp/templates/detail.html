@@ -1,11 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    {% block css %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel ="stylesheet" href="{% static 'css/detail.css' %}">
     <title>나만의 가계부 만들기</title>
+    {% endblock css %}
 </head>
 
 <body>
@@ -21,7 +25,23 @@
         <img src="{{ cashbooks.image.url }}" width="250" height="250" alt='image'></img>
         {% endif %}
         <br>
-        <a href="{% url 'edit' cashbooks.id %}">수정하기</a>
+        <button id="modal-active">댓글수정</button>
+        <div id="modal-notice" class="modal-background">
+            <div class="modal-editpage">
+                <a class="btn-close" id="modal-close" href="">❌</a>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <table>
+                        {{form.as_table}}
+                    </table>
+                    {% if cashbooks.image %}
+                        <img src="{{ cashbooks.image.url }}" width="250" height="250" alt ='image'></img>
+                    {% endif %}
+                    <br>
+                    <button type="submit" class="btn-submit">작성</button>
+                </form>
+            </div>
+        </div>
         <a href="{% url 'delete' cashbooks.id %}">삭제하기</a>
         <br><br>
         {% for comment in cashbooks.comments.all %}
@@ -50,12 +70,35 @@
                 <span> {{ hashtag.name}}</span>
             {% endfor %}
             <br><br>
-            <a href="{% url 'likes' cashbooks.id %}">
-                좋아요 : {{ cashbooks.like_count }}
-            </a>
+            <div class="heart">
+                <p class="like"><a href="{% url 'likes' cashbooks.id %}">
+                    {% if user in cashbooks.like.all %}
+                    {% else %}
+                    <p class="good"></p>{{ cashbooks.like_count }}
+                    {% endif %}
+                </a></p>
+            </div>
+            <div class="animation-heart">
+            </div>
         </form>
     </div>
+    <script>
+        const heart = document.querySelector(".heart");
+        const animationHeart = document.querySelector(".animation-heart");
 
+        heart.addEventListener('click', () => 
+        {
+            animationHeart.classList.add('animation');
+            heart.classList.add('fill-color');
+        });
+
+        animationHeart.addEventListener('click', () => 
+        {
+            animationHeart.classList.remove('animation');
+            heart.classList.remove('fill-color');
+        });
+    </script>
+    <script src="{% static 'js/detail.js' %}"></script>
 </body>
 
 </html>

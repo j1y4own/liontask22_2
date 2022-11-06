@@ -18,9 +18,21 @@
 </head>
 <body>
     <br>
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#" style="color:rgba(93, 25, 25, 0.7);">Main</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'read' %}" style="color:rgba(93, 25, 25, 0.7);">Read</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" style="color:rgba(93, 25, 25, 0.7);">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="color:rgba(93, 25, 25, 0.7);">Login</a>
+        </li>
+      </ul>
     <hr style="border: 7px solid #45312b">
-    <br>
-    <br>
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -46,11 +58,11 @@
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
-      </div>
+    </div>
+    <br>
     <div class="box">
         <br>
         <hr style="border: 7px solid rgb(114, 113, 113); width:70%;">
-        <h1>Bar with Sweet</h1>
         <hr>
         <div id="columbus" class="columbus">
             <div class="columintro">
@@ -129,10 +141,13 @@
                 <p>☎️Tel: 0507-1324-9430</p>
             </div>
         </div>
-        </div>
+    </div>
+    <div class="digital">
+        <div id="date" class="date"></div>
+        <div id="time" class="time"></div>
     </div>
     <script src="{% static 'js/main.js' %}"></script>
 </body>
-<footer>Copyright&copy; 성공회대학교 멋쟁이사자처럼 10기 아기사자 전지윤</footer>
+<!-- <footer>Copyright&copy; 성공회대학교 멋쟁이사자처럼 10기 아기사자 전지윤</footer> -->
 
 </html>
