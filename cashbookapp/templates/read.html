@@ -4,16 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://js.tosspayments.com/v1"></script>
     <title>나만의 가계부 만들기</title>
 </head>
 <body>
     <h2>Read</h2>
+    <h1>
+        결제 (일반)
+    </h1>
+    <section>
+        <div><button onclick="location.href='/window';">결제창</button></div>
+    </section>
+    <hr>
     <form method="post">
         {% for cashbooks in cashbooks.all %}
         <h3>제목 : <a href="{% url 'detail' cashbooks.id %}">{{cashbooks.title}}</a></h3>
         <p>작성일: {{cashbooks.created_at}}</p>
         {% endfor %}
     </form>
-    
 </body>
 </html>
